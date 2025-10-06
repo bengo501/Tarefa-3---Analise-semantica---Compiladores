@@ -1,0 +1,33 @@
+int i;
+float x;
+bool b;
+
+struct DATA {
+   int dia;
+   int mes;
+   int ano;
+};
+
+struct ALUNO {
+   int matricula;
+   string nome;
+   DATA dnasc; 
+   bool ativo;
+};
+
+ALUNO alu1;
+ALUNO alu2;
+
+DATA d1;
+DATA d2;
+
+void main() {
+   
+   d1.dnasc = d1.dia + d1.mes;
+
+   alu1.dnasc = d1.dia;
+     
+   alu1.dnasc.anoNascimento = 1996; 
+
+   i.dia = 26;
+}

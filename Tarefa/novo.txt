@@ -1,0 +1,35 @@
+int i, j, k;
+double x,  y;
+bool b, ok;
+
+int [10] v;
+bool [5][10] vb;
+double  [5][6][7][8][9] cinema7d;
+
+void main() {
+   ok = vb[v[i+j]][3] && b && (x > i) && (i > 3);
+
+   v[i+j+k] = v[v[y[i+1]]];
+
+   ok = v;
+ 
+   v[3] = cinema7d[3][4][5];
+
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
