@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class ParserFinal {
     private TabSimb ts;
@@ -145,7 +144,10 @@ public class ParserFinal {
             if (line.equals("}")) {
                 break;
             }
-            // Por simplicidade, não processamos as instruções dentro do main
+            
+            if (line.endsWith(";") && !line.isEmpty()) {
+                parseStatement(line);
+            }
         }
     }
 
@@ -165,6 +167,139 @@ public class ParserFinal {
             }
         }
         return false;
+    }
+
+    private void parseStatement(String line) {
+        // Remove ';' do final
+        line = line.substring(0, line.length() - 1).trim();
+        
+        if (line.contains("=")) {
+            parseAssignment(line);
+        }
+    }
+    
+    private void parseAssignment(String line) {
+        String[] parts = line.split("=", 2);
+        if (parts.length == 2) {
+            String leftSide = parts[0].trim();
+            String rightSide = parts[1].trim();
+            
+            TS_entry leftType = getExpressionType(leftSide);
+            TS_entry rightType = getExpressionType(rightSide);
+            
+            if (leftType != null && rightType != null) {
+                validateAssignment(leftType, rightType);
+            }
+        }
+    }
+    
+    private TS_entry getExpressionType(String expression) {
+        expression = expression.trim();
+        
+        // Se é um número
+        if (expression.matches("\\d+")) {
+            return Tp_INT;
+        }
+        
+        // Se contém operador de soma
+        if (expression.contains("+")) {
+            return parseBinaryExpression(expression, "+");
+        }
+        
+        // Se é acesso a campo (var.campo)
+        if (expression.contains(".")) {
+            return parseFieldAccess(expression);
+        }
+        
+        // Se é apenas uma variável
+        TS_entry var = ts.pesquisa(expression);
+        if (var != null) {
+            return var.getTipo();
+        }
+        
+        yyerror("(sem) variavel <" + expression + "> nao declarada");
+        return Tp_ERRO;
+    }
+    
+    private TS_entry parseBinaryExpression(String expression, String operator) {
+        String[] parts = expression.split("\\" + operator);
+        if (parts.length == 2) {
+            TS_entry leftType = getExpressionType(parts[0].trim());
+            TS_entry rightType = getExpressionType(parts[1].trim());
+            
+            if (leftType == Tp_INT && rightType == Tp_INT) {
+                return Tp_INT;
+            } else if ((leftType == Tp_FLOAT && (rightType == Tp_INT || rightType == Tp_FLOAT)) ||
+                      (rightType == Tp_FLOAT && (leftType == Tp_INT || leftType == Tp_FLOAT))) {
+                return Tp_FLOAT;
+            } else if ((leftType == Tp_DOUBLE && (rightType == Tp_INT || rightType == Tp_DOUBLE)) ||
+                      (rightType == Tp_DOUBLE && (leftType == Tp_INT || leftType == Tp_DOUBLE))) {
+                return Tp_DOUBLE;
+            } else {
+                yyerror("(sem) tipos incomp. para soma: " + leftType.getTipoStr() + " + " + rightType.getTipoStr());
+                return Tp_ERRO;
+            }
+        }
+        return Tp_ERRO;
+    }
+    
+    private TS_entry parseFieldAccess(String expression) {
+        String[] parts = expression.split("\\.");
+        if (parts.length >= 2) {
+            String varName = parts[0].trim();
+            
+            TS_entry var = ts.pesquisa(varName);
+            if (var == null) {
+                yyerror("(sem) variavel <" + varName + "> nao declarada");
+                return Tp_ERRO;
+            }
+            
+            if (var.getTipo() == null || var.getTipo().getClasse() != ClasseID.NomeStruct) {
+                yyerror("(sem) variavel <" + varName + "> nao e struct");
+                return Tp_ERRO;
+            }
+            
+            // Processa acesso aninhado (ex: alu1.dnasc.ano)
+            TS_entry currentType = var.getTipo();
+            for (int i = 1; i < parts.length; i++) {
+                String fieldName = parts[i].trim();
+                
+                if (currentType == null || currentType.getClasse() != ClasseID.NomeStruct) {
+                    yyerror("(sem) campo <" + parts[i-1] + "> nao e struct");
+                    return Tp_ERRO;
+                }
+                
+                TS_entry field = ts.pesquisaCampo(currentType.getId(), fieldName);
+                if (field == null) {
+                    yyerror("(sem) campo <" + fieldName + "> nao existe no struct <" + currentType.getId() + ">");
+                    return Tp_ERRO;
+                }
+                
+                currentType = field.getTipo();
+            }
+            
+            return currentType;
+        }
+        return Tp_ERRO;
+    }
+    
+    private void validateAssignment(TS_entry leftType, TS_entry rightType) {
+        if (leftType == Tp_ERRO || rightType == Tp_ERRO) {
+            return; // Já foi reportado erro anteriormente
+        }
+        
+        // Verifica compatibilidade de tipos
+        if (leftType == rightType) {
+            return; // Tipos iguais, OK
+        }
+        
+        // Verifica conversões implícitas permitidas
+        if ((leftType == Tp_FLOAT && (rightType == Tp_INT || rightType == Tp_FLOAT)) ||
+            (leftType == Tp_DOUBLE && (rightType == Tp_INT || rightType == Tp_DOUBLE || rightType == Tp_FLOAT))) {
+            return; // Conversões numéricas permitidas
+        }
+        
+        yyerror("(sem) tipos incomp. para atribuicao: " + leftType.getTipoStr() + " = " + rightType.getTipoStr());
     }
 
     private TS_entry getTypeFromString(String tipoStr) {
