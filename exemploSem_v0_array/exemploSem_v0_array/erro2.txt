@@ -1,0 +1,38 @@
+int i;
+int j;
+int k;
+
+double x;
+double y;
+
+bool b;
+bool ok;
+
+void main() {
+   j = k;
+   i = 5;  
+
+   x = i + 4;
+   y = y + i + 2;  
+ 
+   ok = b && (x > i) && i > 3;
+
+   if ( ok + 1 )
+      i = 7;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

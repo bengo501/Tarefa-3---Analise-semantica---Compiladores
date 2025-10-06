@@ -1,0 +1,53 @@
+int i;
+
+float x;
+
+bool b;
+
+int[10] vint;
+float [20] vfloat;
+bool[30] vbool;
+
+
+void main() {
+
+   i = 5;
+   
+   i = vint[3];
+
+   i = vint[i];
+    
+   x = vfloat[2] + i;
+
+   b = vbool[i+1] ;
+
+   b = vfloat[ vint[i] + i ] > 5;
+   
+   vint[3] = i;
+
+   vint[i] = 4;
+    
+   vfloat[2] = x + i;
+
+   vbool[i+1] = x > i;
+
+   vbool[ vint[4] + 2 ] = vfloat[ vint[i] + i ] > 5;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

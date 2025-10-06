@@ -1,0 +1,68 @@
+Tarefa 3 - Análise semântica
+
+    atividade a ser executada individual ou em grupos de até 4 alunos
+    até o dia da prova P2, até as 23:59h
+    definição dos grupos e sala de entrega no card TDE
+
+O que fazer - alterar o código exemplo visto  em aula (versão com arrays) para realizar verificação semântica de structs.
+
+Como fazer:
+
+1. reconhecer a declaração de structs e gerar uma tabela de símbolos, como por exemplo esta (para o arquivo corretoStruct.txt):
+Listagem da tabela de símbolos:
+
+ident      Classe         Escopo      Tipo
+-----------------------------------------------
+_erro_     TipoBase       -           null
+int        TipoBase       -           null
+float      TipoBase       -           null
+bool       TipoBase       -           null
+string     TipoBase       -           null
+array      TipoBase       -           null
+struct     TipoBase       -           null
+i          VarGlobal      -           int
+x          VarGlobal      -           float
+b          VarGlobal      -           boolean
+DATA       NomeStruct     -           struct
+  dia      CampoStruct    DATA        int
+  mes      CampoStruct    DATA        int
+  ano      CampoStruct    DATA        int
+ALUNO      NomeStruct     -           struct
+  matricula CampoStruct   ALUNO       int
+  nome     CampoStruct    ALUNO       string
+  dnasc    CampoStruct    ALUNO       DATA
+  ativo    CampoStruct    ALUNO       boolean
+alu1       VarGlobal      -           ALUNO
+alu2       VarGlobal      -           ALUNO
+d1         VarGlobal      -           DATA
+d2         VarGlobal      -           DATA
+
+2. verificar se o programa está semanticamente correto (exemplo acima) ou com erros, como por exemplo abaixo (gerado a partir do programa erroStruct.txt):
+
+Listagem da tabela de símbolos:
+
+ident      Classe         Escopo      Tipo
+-----------------------------------------------
+_erro_     TipoBase       -           null
+int        TipoBase       -           null
+float      TipoBase       -           null
+bool       TipoBase       -           null
+string     TipoBase       -           null
+array      TipoBase       -           null
+struct     TipoBase       -           null
+i          VarGlobal      -           int
+x          VarGlobal      -           float
+b          VarGlobal      -           boolean
+DATA       NomeStruct     -           struct
+  dia      CampoStruct    DATA        int
+  mes      CampoStruct    DATA        int
+  ano      CampoStruct    DATA        int
+ALUNO      NomeStruct     -           struct
+  matricula CampoStruct   ALUNO       int
+  nome     CampoStruct    ALUNO       string
+  dnasc    CampoStruct    ALUNO       DATA
+  ativo    CampoStruct    ALUNO       boolean
+alu1       VarGlobal      -           ALUNO
+alu2       VarGlobal      -           ALUNO
+d1         VarGlobal      -           DATA
+d2         VarGlobal      -           DATA

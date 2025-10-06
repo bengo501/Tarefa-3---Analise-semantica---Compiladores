@@ -1,0 +1,55 @@
+int i;
+
+double x;
+
+bool b;
+
+int[10] vint;
+double [20] vfloat;
+bool[30] vbool;
+
+int[20][300] matriz;
+
+
+void main() {
+
+   i = 5;
+   
+   i = vint[3];
+
+   i = vint[i];
+    
+   x = vfloat[2] + i;
+
+   b = vbool[i+1] ;
+
+   b = vfloat[ vint[b] + i ] > 5;
+   
+   vint[3] = i;
+
+   vint[i] = 4;
+    
+   vfloat[2] = x + i;
+
+   vbool[i+1] = x > i;
+
+   vbool[ vint[4] + 2 ] = vfloat[ vint[i][4] + i ] > matriz[10][3];
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
