@@ -1,0 +1,37 @@
+# Makefile para Tarefa 3 - Structs
+# Funciona com byacc/j e JFlex
+
+JFLEX  = java -jar JFlex.jar 
+BYACCJ = ./yacc.linux -tv -J
+JAVAC  = javac
+
+# targets:
+
+all: Parser.class
+
+run: Parser.class
+	java Parser corretoStruct.txt
+
+run_error: Parser.class
+	java Parser erroStruct.txt
+
+build: clean Parser.class
+
+clean:
+	rm -f *~ *.class Yylex.java Parser.java y.output
+
+Parser.class: TS_entry.java TabSimb.java Yylex.java Parser.java
+	$(JAVAC) Parser.java
+
+Yylex.java: exemploSem_struct.flex
+	$(JFLEX) exemploSem_struct.flex
+
+Parser.java: exemploSem_struct.y
+	$(BYACCJ) exemploSem_struct.y
+
+test: Parser.class
+	@echo "Testando com corretoStruct.txt..."
+	java Parser corretoStruct.txt
+	@echo ""
+	@echo "Testando com erroStruct.txt..."
+	java Parser erroStruct.txt

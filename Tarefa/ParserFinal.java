@@ -39,8 +39,19 @@ public class ParserFinal {
 
     public void parseFile(String filename) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line;
         
+        // Primeira passada: processar todos os structs
+        parseAllStructs(reader);
+        
+        // Segunda passada: processar declarações de variáveis
+        reader = new BufferedReader(new FileReader(filename));
+        parseVariablesAndMain(reader);
+        
+        reader.close();
+    }
+    
+    private void parseAllStructs(BufferedReader reader) throws IOException {
+        String line;
         while ((line = reader.readLine()) != null) {
             lineNumber++;
             line = line.trim();
@@ -53,14 +64,28 @@ public class ParserFinal {
                 parseStructDeclaration(line);
                 parseStructFields(reader);
             } else if (line.startsWith("void main()")) {
+                break;
+            }
+        }
+    }
+    
+    private void parseVariablesAndMain(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lineNumber++;
+            line = line.trim();
+            
+            if (line.isEmpty() || line.startsWith("//")) {
+                continue;
+            }
+            
+            if (line.startsWith("void main()")) {
                 parseMainFunction(reader);
                 break;
             } else if (isTypeDeclaration(line)) {
                 parseVariableDeclaration(line);
             }
         }
-        
-        reader.close();
     }
 
     private void parseStructDeclaration(String line) {

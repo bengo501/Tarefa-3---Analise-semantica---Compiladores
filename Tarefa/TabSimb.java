@@ -38,6 +38,7 @@ public class TabSimb
       for (TS_entry nodo : lista) {
           if (nodo.getId().equals(campoId) && 
               nodo.getClasse() == ClasseID.CampoStruct && 
+              nodo.getEscopo() != null && 
               nodo.getEscopo().equals(structId)) {
               return nodo;
           }
