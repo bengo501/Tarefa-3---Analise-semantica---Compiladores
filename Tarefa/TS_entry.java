@@ -86,12 +86,12 @@ public class TS_entry
       else if (tipo.getId().equals("float"))  return "float";
       else if (tipo.getId().equals("string"))  return "string";
       else if (tipo.getId().equals("struct"))  return "struct";
+      else if (tipo.getId().equals("_erro_"))  return  "_erro_";
+      else if (tipo.getClasse() == ClasseID.NomeStruct) return tipo.getId();
       else if (tipo.getTipo() != null) return  String.format("array(%d,%s)",
                                                    tipo.nroElementos, 
                                                     tipo2str(tipo.tipoBase));
                  
-      else if (tipo.getId().equals("_erro_"))  return  "_erro_";
-      else if (tipo.getClasse() == ClasseID.NomeStruct) return tipo.getId();
       else                             return "erro/tp";
    }
 
