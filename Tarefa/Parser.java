@@ -172,116 +172,111 @@ public final static short IF=268;
 public final static short STRUCT=269;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    4,    0,    3,    3,    8,    6,    6,   10,   11,   11,
-   13,   12,    9,    9,   14,    7,    7,    1,    1,    1,
-    1,    1,    1,    5,   15,   16,   16,   17,   17,    2,
-    2,    2,    2,    2,    2,    2,    2,    2,
+    7,    0,    6,    6,    9,    9,    4,    4,   10,    5,
+    5,   11,    1,    1,    1,    1,    1,    1,    8,   12,
+   13,   13,   14,   14,    2,    2,    2,    2,    2,    2,
+    2,    3,    3,    3,
 };
 final static short yylen[] = {                            2,
-    0,    3,    2,    0,    0,    5,    1,    6,    2,    0,
-    0,    4,    3,    1,    1,    4,    0,    1,    1,    1,
-    1,    1,    1,    5,    3,    2,    0,    2,    5,    3,
-    3,    3,    1,    3,    1,    3,    4,    3,
+    0,    3,    2,    0,    4,    1,    4,    0,    6,    2,
+    0,    3,    1,    1,    1,    1,    1,    1,    5,    3,
+    2,    0,    2,    5,    3,    3,    3,    1,    3,    1,
+    3,    1,    4,    3,
 };
 final static short yydefred[] = {                         1,
-    0,    0,   23,   18,   19,   20,   21,   22,    0,    5,
-    0,    0,    7,    0,    0,    0,    2,    3,    0,    0,
-    0,    0,   11,    0,    0,    0,   15,    0,   14,    0,
-    0,    0,    9,    0,    6,    0,    0,    0,    8,   16,
-   13,   27,   24,   12,    0,    0,   33,    0,   25,    0,
-    0,   26,    0,    0,    0,    0,    0,    0,    0,    0,
-   28,   38,    0,   34,    0,    0,    0,    0,    0,    0,
-   37,   29,
+    0,    0,   18,   13,   14,   15,   16,   17,    0,    0,
+    0,    0,    6,    0,    0,    0,    0,    2,    3,    0,
+    0,    0,    0,    0,    0,    0,    0,    5,    0,    0,
+    0,   10,    7,    0,   12,    9,   22,   19,    0,    0,
+   28,    0,   20,    0,    0,    0,   21,    0,    0,    0,
+    0,    0,    0,    0,   23,    0,    0,   34,    0,   29,
+   27,    0,    0,    0,   33,    0,   24,
 };
 final static short yydgoto[] = {                          1,
-   10,   51,   11,    2,   17,   12,   21,   15,   28,   13,
-   24,   25,   31,   29,   43,   45,   52,
+   10,   45,   46,   16,   25,   11,    2,   18,   12,   13,
+   26,   38,   39,   47,
 };
 final static short yysindex[] = {                         0,
-    0, -171,    0,    0,    0,    0,    0,    0, -249,    0,
- -255, -171,    0, -107,  -74, -247,    0,    0, -164, -244,
- -218,    3,    0,  -79, -164,  -37,    0,   -8,    0,   11,
- -203,   -2,    0,  -74,    0, -218,  -65,    2,    0,    0,
-    0,    0,    0,    0,  -40,   22,    0,   25,    0,  -36,
-  -24,    0, -186,  -36,  -31,  -36,  -36,  -36,  -36,  -36,
-    0,    0,  -28,    0,   -7,  -17,  -41,  -85,  -21,  -39,
-    0,    0,
+    0, -218,    0,    0,    0,    0,    0,    0, -242,  -69,
+ -240, -218,    0,  -87, -216, -210, -214,    0,    0, -184,
+  -44,    3,   23, -192,  -59, -184,  -69,    0,   26,   11,
+   12,    0,    0,  -45,    0,    0,    0,    0,  -40,  -27,
+    0,   40,    0,  -36,  -30,   20,    0,  -36, -175,  -36,
+  -35,  -36,  -36,  -36,    0,  -36,  -32,    0,  -31,    0,
+    0,  -41, -182,  -29,    0,  -39,    0,
 };
 final static short yyrindex[] = {                         0,
-    0, -175,    0,    0,    0,    0,    0,    0,    0,    0,
-    0, -175,    0,    0, -157,    0,    0,    0,  -23,    0,
-    0,    0,    0,    0,  -23,    0,    0,    0,    0,    0,
-    0,    0,    0, -157,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,  -38,    0,    0,    0,    0,
+    0, -180,    0,    0,    0,    0,    0,    0,    0, -173,
+    0, -180,    0,    0,    0,    0,    0,    0,    0,  -37,
+    0,    0,    0,    0,    0,  -37, -173,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,  -38,
+    0,    0,    0,    0,    0,  -34,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,  -34,  -27,  -12,   21,    0,    0,
-    0,    0,
+    0,  -24,  -25,  -21,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-   23,   19,   89,    0,    0,    0,   69,    0,    0,    0,
-   79,    0,    0,   70,    0,    0,   35,
+   24,    4,    0,   60,   63,   78,    0,    0,    0,    0,
+    0,    0,    0,   25,
 };
-final static int YYTABLESIZE=248;
+final static int YYTABLESIZE=236;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                         50,
-   50,   59,   35,   50,   35,   60,   32,   14,   32,   64,
-   16,   59,   70,   36,   59,   19,   20,   26,   59,   22,
-   35,   59,   35,   35,   32,   59,   32,   32,   31,   57,
-   58,   36,   57,   58,   61,   36,   57,   58,   27,   57,
-   58,   23,   30,   57,   58,   32,   31,   23,   31,   60,
-   35,   37,   35,   38,   35,   34,   39,   42,   32,   60,
-   44,   30,   60,   30,   54,   36,   60,   53,   55,   60,
-   62,   71,   63,   60,   65,   66,   67,   68,   69,   30,
-   31,   30,   30,   60,   49,    3,    4,    5,    6,    7,
-    4,    8,    3,    4,    5,    6,    7,    9,    8,   17,
-   18,   10,   40,   33,   72,   41,    0,    0,    0,    0,
-    0,    0,    0,   30,    0,    0,    0,    0,    0,    0,
+yytable = new short[]{                         44,
+   44,   54,   32,   44,   32,   60,   30,   54,   30,   66,
+   54,   54,   54,   54,   14,   25,   26,   25,   49,   31,
+   32,   15,   32,   32,   30,   17,   53,   30,   55,   53,
+   53,   53,   53,   25,   26,   20,   25,   31,    3,    4,
+    5,    6,    7,   24,    8,   21,   22,   51,   27,   24,
+    9,   57,   23,   59,   32,   61,   62,   63,   30,   64,
+   65,   28,   29,   48,   30,   31,   34,   25,   26,   35,
+   36,   31,    3,    4,    5,    6,    7,   37,    8,   50,
+   56,   58,   52,    8,   43,    4,   33,   11,   32,   19,
+   67,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,   56,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,   46,   46,    0,    0,
-   46,   47,   47,   56,    0,   47,   35,   48,   48,    0,
-   32,    0,    0,   56,    0,    0,   56,    0,    0,    0,
-   56,    0,    0,   56,    0,    0,    0,   56,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,   40,   40,    0,    0,
+   40,   41,   41,   52,    0,   41,   32,   42,   42,   52,
+   30,    0,   52,   52,   52,   52,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         40,
-   40,   43,   41,   40,   43,   91,   41,  257,   43,   41,
-  266,   43,   41,   41,   43,  123,   91,  262,   43,  267,
-   59,   43,   61,   62,   59,   43,   61,   62,   41,   61,
-   62,   59,   61,   62,   59,   44,   61,   62,  257,   61,
-   62,   19,   40,   61,   62,  125,   59,   25,   61,   91,
-   59,   41,   91,  257,   93,   93,   59,  123,   93,   91,
-   59,   41,   91,   43,   40,   93,   91,   46,   50,   91,
-  257,   93,   54,   91,   56,   57,   58,   59,   60,   59,
-   93,   61,   62,   91,  125,  257,  258,  259,  260,  261,
-  266,  263,  257,  258,  259,  260,  261,  269,  263,  257,
-   12,  125,   34,   25,   70,   36,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   93,   -1,   -1,   -1,   -1,   -1,   -1,
+   40,   43,   41,   40,   43,   41,   41,   43,   43,   41,
+   43,   43,   43,   43,  257,   41,   41,   43,   46,   41,
+   59,   91,   61,   62,   59,  266,   62,   62,   59,   62,
+   62,   62,   62,   59,   59,  123,   62,   59,  257,  258,
+  259,  260,  261,   20,  263,  262,  257,   44,   93,   26,
+  269,   48,  267,   50,   93,   52,   53,   54,   93,   56,
+   93,   59,   40,   91,  257,  125,   41,   93,   93,   59,
+   59,   93,  257,  258,  259,  260,  261,  123,  263,   40,
+   61,  257,  265,  257,  125,  266,   27,  125,   26,   12,
+   66,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,  265,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,  257,  257,   -1,   -1,
-  257,  262,  262,  265,   -1,  262,  265,  268,  268,   -1,
-  265,   -1,   -1,  265,   -1,   -1,  265,   -1,   -1,   -1,
-  265,   -1,   -1,  265,   -1,   -1,   -1,  265,
+  257,  262,  262,  265,   -1,  262,  265,  268,  268,  265,
+  265,   -1,  265,  265,  265,  265,
 };
 }
 final static short YYFINAL=1;
@@ -289,7 +284,7 @@ final static short YYMAXTOKEN=269;
 final static String yyname[] = {
 "end-of-file",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,"'('","')'",null,"'+'","','",
+null,null,null,null,null,null,null,null,null,null,"'('","')'",null,"'+'",null,
 null,"'.'",null,null,null,null,null,null,null,null,null,null,null,null,"';'",
 null,"'='","'>'",null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
@@ -312,19 +307,14 @@ final static String yyrule[] = {
 "prog : $$1 dList main",
 "dList : decl dList",
 "dList :",
-"$$2 :",
-"decl : type $$2 TArray Lid ';'",
+"decl : type TArray IDENT ';'",
 "decl : structDecl",
+"TArray : '[' NUM ']' TArray",
+"TArray :",
 "structDecl : STRUCT IDENT '{' campoList '}' ';'",
 "campoList : campoDecl campoList",
 "campoList :",
-"$$3 :",
-"campoDecl : type $$3 IDENT ';'",
-"Lid : Lid ',' id",
-"Lid : id",
-"id : IDENT",
-"TArray : '[' NUM ']' TArray",
-"TArray :",
+"campoDecl : type IDENT ';'",
 "type : INT",
 "type : DOUBLE",
 "type : FLOAT",
@@ -342,13 +332,14 @@ final static String yyrule[] = {
 "exp : exp AND exp",
 "exp : NUM",
 "exp : '(' exp ')'",
-"exp : IDENT",
-"exp : exp '=' exp",
-"exp : exp '[' exp ']'",
-"exp : IDENT '.' IDENT",
+"exp : lvalue",
+"exp : lvalue '=' exp",
+"lvalue : IDENT",
+"lvalue : IDENT '[' exp ']'",
+"lvalue : IDENT '.' IDENT",
 };
 
-//#line 147 "exemploSem.y"
+//#line 149 "exemploSem.y"
 
 
   private Yylex lexer;
@@ -361,9 +352,7 @@ final static String yyrule[] = {
   public static TS_entry Tp_BOOL = new TS_entry("bool", null,  ClasseID.TipoBase);
   public static TS_entry Tp_STRING = new TS_entry("string", null,  ClasseID.TipoBase);
   public static TS_entry Tp_STRUCT = new TS_entry("struct", null,  ClasseID.TipoBase);
-
   public static TS_entry Tp_ARRAY = new TS_entry("array", null,  ClasseID.TipoBase);
-
   public static TS_entry Tp_ERRO = new TS_entry("_erro_", null,  ClasseID.TipoBase);
 
   public static final int ARRAY = 1500;
@@ -371,9 +360,7 @@ final static String yyrule[] = {
 
   private String currEscopo;
   private String currStructName;
-
   private ClasseID currClass;
-  private TS_entry currentType;
 
   private int yylex () {
     int yyl_return = -1;
@@ -390,7 +377,7 @@ final static String yyrule[] = {
 
   public void yyerror (String error) {
     //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
-    System.err.printf("Erro (linha: %2d) \tMensagem: %s\n", lexer.getLine(), error);
+    System.err.printf("Erro (linha: %2d \tMensagem: %s)\n", lexer.getLine(), error);
   }
 
 
@@ -490,7 +477,8 @@ final static String yyrule[] = {
             return Tp_ERRO;
            
      }
-//#line 422 "Parser.java"
+
+//#line 410 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -645,15 +633,30 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 25 "exemploSem.y"
+//#line 28 "exemploSem.y"
 { currClass = ClasseID.VarGlobal; }
 break;
 case 5:
-//#line 29 "exemploSem.y"
-{ currentType = (TS_entry)val_peek(0).obj; }
+//#line 32 "exemploSem.y"
+{  TS_entry nodo = ts.pesquisa(val_peek(1).sval);
+                            if (nodo != null) 
+                              yyerror("(sem) variavel >" + val_peek(1).sval + "< jah declarada");
+                          else {
+                              TS_entry tipoFinal = (TS_entry)val_peek(2).obj != null ? (TS_entry)val_peek(2).obj : (TS_entry)val_peek(3).obj;
+                              ts.insert(new TS_entry(val_peek(1).sval, tipoFinal, currClass));
+                          }
+                        }
+break;
+case 7:
+//#line 43 "exemploSem.y"
+{ yyval.obj = new TS_entry("?", Tp_ARRAY, currClass, val_peek(2).ival, (TS_entry)val_peek(0).obj); }
 break;
 case 8:
-//#line 33 "exemploSem.y"
+//#line 44 "exemploSem.y"
+{ yyval.obj = null; }
+break;
+case 9:
+//#line 47 "exemploSem.y"
 { 
                 currStructName = val_peek(4).sval;
                 TS_entry structNodo = ts.pesquisa(val_peek(4).sval);
@@ -665,90 +668,86 @@ case 8:
                 }
             }
 break;
+case 10:
+//#line 59 "exemploSem.y"
+{ yyval.obj = null; }
+break;
 case 11:
-//#line 47 "exemploSem.y"
-{ currentType = (TS_entry)val_peek(0).obj; }
+//#line 60 "exemploSem.y"
+{ yyval.obj = null; }
 break;
 case 12:
-//#line 47 "exemploSem.y"
+//#line 63 "exemploSem.y"
 {
-                TS_entry campo = new TS_entry(val_peek(1).sval, currentType, ClasseID.CampoStruct, 0, null, currStructName);
+                TS_entry campo = new TS_entry(val_peek(1).sval, (TS_entry)val_peek(2).obj, ClasseID.CampoStruct, 0, null, currStructName);
                 ts.insert(campo);
             }
 break;
-case 15:
-//#line 57 "exemploSem.y"
-{ TS_entry nodo = ts.pesquisa(val_peek(0).sval);
-                if (nodo != null) 
-                    yyerror("(sem) variavel >" + val_peek(0).sval + "< jah declarada");
-                else ts.insert(new TS_entry(val_peek(0).sval, currentType, currClass)); 
-              }
-break;
-case 16:
-//#line 65 "exemploSem.y"
-{ currentType = new TS_entry("?", Tp_ARRAY, 
-                                                   currClass, val_peek(2).ival, currentType); }
-break;
-case 18:
-//#line 75 "exemploSem.y"
+case 13:
+//#line 72 "exemploSem.y"
 { yyval.obj = Tp_INT; }
 break;
-case 19:
-//#line 76 "exemploSem.y"
+case 14:
+//#line 73 "exemploSem.y"
 { yyval.obj = Tp_DOUBLE; }
 break;
-case 20:
-//#line 77 "exemploSem.y"
+case 15:
+//#line 74 "exemploSem.y"
 { yyval.obj = Tp_FLOAT; }
 break;
-case 21:
-//#line 78 "exemploSem.y"
+case 16:
+//#line 75 "exemploSem.y"
 { yyval.obj = Tp_BOOL; }
 break;
-case 22:
-//#line 79 "exemploSem.y"
+case 17:
+//#line 76 "exemploSem.y"
 { yyval.obj = Tp_STRING; }
 break;
-case 23:
-//#line 80 "exemploSem.y"
-{ 
-         TS_entry nodo = ts.pesquisa(val_peek(0).sval);
-         if (nodo != null && nodo.getClasse() == ClasseID.NomeStruct) {
-             yyval.obj = nodo;
-         } else {
-             yyerror("(sem) tipo <" + val_peek(0).sval + "> nao declarado");
-             yyval.obj = Tp_ERRO;
-         }
-       }
+case 18:
+//#line 77 "exemploSem.y"
+{ TS_entry nodo = ts.pesquisa(val_peek(0).sval);
+                if (nodo == null ) 
+                   yyerror("(sem) Nome de tipo <" + val_peek(0).sval + "> nao declarado ");
+                else 
+                    yyval.obj = nodo;
+               }
 break;
-case 29:
-//#line 102 "exemploSem.y"
+case 24:
+//#line 96 "exemploSem.y"
 {  if ( ((TS_entry)val_peek(2).obj) != Tp_BOOL) 
                                      yyerror("(sem) expressão (if) deve ser lógica "+((TS_entry)val_peek(2).obj).getTipo());
                              }
 break;
-case 30:
-//#line 108 "exemploSem.y"
+case 25:
+//#line 102 "exemploSem.y"
 { yyval.obj = validaTipo('+', (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
-case 31:
-//#line 109 "exemploSem.y"
+case 26:
+//#line 103 "exemploSem.y"
 { yyval.obj = validaTipo('>', (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
-case 32:
-//#line 110 "exemploSem.y"
+case 27:
+//#line 104 "exemploSem.y"
 { yyval.obj = validaTipo(AND, (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
-case 33:
-//#line 111 "exemploSem.y"
+case 28:
+//#line 105 "exemploSem.y"
 { yyval.obj = Tp_INT; }
 break;
-case 34:
-//#line 112 "exemploSem.y"
+case 29:
+//#line 106 "exemploSem.y"
 { yyval.obj = val_peek(1).obj; }
 break;
-case 35:
-//#line 113 "exemploSem.y"
+case 30:
+//#line 107 "exemploSem.y"
+{ yyval.obj = val_peek(0).obj; }
+break;
+case 31:
+//#line 108 "exemploSem.y"
+{  yyval.obj = validaTipo(ATRIB, (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj);  }
+break;
+case 32:
+//#line 112 "exemploSem.y"
 { TS_entry nodo = ts.pesquisa(val_peek(0).sval);
                     if (nodo == null) {
                        yyerror("(sem) var <" + val_peek(0).sval + "> nao declarada"); 
@@ -758,40 +757,42 @@ case 35:
                         yyval.obj = nodo.getTipo();
                   }
 break;
-case 36:
-//#line 121 "exemploSem.y"
-{  yyval.obj = validaTipo(ATRIB, (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj);  }
-break;
-case 37:
-//#line 122 "exemploSem.y"
-{  if ((TS_entry)val_peek(1).obj != Tp_INT) 
-                              yyerror("(sem) indexador não é numérico ");
-                           else 
-                               if (((TS_entry)val_peek(3).obj).getTipo() != Tp_ARRAY)
-                                  yyerror("(sem) elemento não indexado ");
-                               else 
-                                  yyval.obj = ((TS_entry)val_peek(3).obj).getTipoBase();
+case 33:
+//#line 120 "exemploSem.y"
+{ TS_entry nodo = ts.pesquisa(val_peek(3).sval);
+                              if (nodo == null) {
+                                 yyerror("(sem) var <" + val_peek(3).sval + "> nao declarada");
+                                 yyval.obj = Tp_ERRO;
+                              } else if ((TS_entry)val_peek(1).obj != Tp_INT) {
+                                 yyerror("(sem) indexador não é numérico ");
+                                 yyval.obj = Tp_ERRO;
+                              } else if (nodo.getTipo() != Tp_ARRAY) {
+                                 yyerror("(sem) elemento não indexado ");
+                                 yyval.obj = Tp_ERRO;
+                              } else {
+                                 yyval.obj = nodo.getTipoBase();
+                              }
                          }
 break;
-case 38:
-//#line 130 "exemploSem.y"
-{
-         TS_entry structNodo = ts.pesquisa(val_peek(2).sval);
-         if (structNodo != null && structNodo.getClasse() == ClasseID.VarGlobal) {
-             TS_entry campoNodo = ts.pesquisaCampo(structNodo.getTipo().getId(), val_peek(0).sval);
-             if (campoNodo != null) {
-                 yyval.obj = campoNodo.getTipo();
-             } else {
-                 yyerror("(sem) campo >" + val_peek(0).sval + "< nao existe no struct <" + structNodo.getTipo().getId() + ">");
-                 yyval.obj = Tp_ERRO;
-             }
-         } else {
-             yyerror("(sem) variavel >" + val_peek(2).sval + "< nao declarada ou nao e struct");
-             yyval.obj = Tp_ERRO;
-         }
-       }
+case 34:
+//#line 134 "exemploSem.y"
+{ TS_entry structNodo = ts.pesquisa(val_peek(2).sval);
+                             if (structNodo != null && structNodo.getTipo() != null && 
+                                 structNodo.getTipo().getClasse() == ClasseID.NomeStruct) {
+                                 TS_entry campoNodo = ts.pesquisaCampo(structNodo.getTipo().getId(), val_peek(0).sval);
+                                 if (campoNodo != null) {
+                                     yyval.obj = campoNodo.getTipo();
+                                 } else {
+                                     yyerror("(sem) campo >" + val_peek(0).sval + "< nao existe no struct <" + structNodo.getTipo().getId() + ">");
+                                     yyval.obj = Tp_ERRO;
+                                 }
+                             } else {
+                                 yyerror("(sem) variavel >" + val_peek(2).sval + "< nao declarada ou nao e struct");
+                                 yyval.obj = Tp_ERRO;
+                             }
+                         }
 break;
-//#line 718 "Parser.java"
+//#line 719 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

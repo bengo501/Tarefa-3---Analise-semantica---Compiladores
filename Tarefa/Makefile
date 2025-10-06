@@ -1,5 +1,3 @@
-
-
 # only works with the Java extension of yacc: 
 # byacc/j from http://troi.lincom-asg.com/~rjamison/byacc/
 
