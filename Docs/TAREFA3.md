@@ -66,6 +66,7 @@ Tarefa/
 ### Componentes Principais
 
 #### 1. **ClasseID.java** - Classes de Identificadores
+
 ```java
 public enum ClasseID {
     TipoBase, 
@@ -76,16 +77,19 @@ public enum ClasseID {
 ```
 
 #### 2. **TS_entry.java** - Entrada da Tabela de Símbolos
+
 - Armazena informações sobre cada símbolo
 - Suporta escopo para campos de struct
 - Métodos para formatação da saída
 
 #### 3. **TabSimb.java** - Tabela de Símbolos
+
 - Gerencia a lista de símbolos
 - Método `pesquisaCampo()` para buscar campos em structs
 - Formatação da tabela de símbolos
 
 #### 4. **ParserFinal.java** - Parser Principal
+
 - Processa arquivos de entrada
 - Reconhece declarações de structs e variáveis
 - Verifica semântica e gera erros
@@ -121,6 +125,7 @@ A tabela é construída incrementalmente:
 ### 3. **Verificação Semântica**
 
 O parser verifica:
+
 - ✅ Structs não declarados duplicados
 - ✅ Variáveis não declaradas duplicadas
 - ✅ Tipos não declarados
@@ -129,16 +134,19 @@ O parser verifica:
 ## 🚀 Como Usar
 
 ### Compilação
+
 ```bash
 javac ParserFinal.java
 ```
 
 ### Execução
+
 ```bash
 java ParserFinal corretoStruct.txt
 ```
 
 ### Saída Esperada
+
 ```
 Verificador semantico simples
 
@@ -176,6 +184,7 @@ Feito!
 ## 🧪 Testes
 
 ### Arquivo corretoStruct.txt
+
 ```c
 int i;
 float x;
@@ -212,6 +221,7 @@ void main() {
 ```
 
 ### Arquivo erroStruct.txt
+
 ```c
 int i;
 float x;
@@ -248,13 +258,13 @@ void main() {
 
 ### ✅ **Funcionalidades Implementadas**
 
-- [x] Reconhecimento de declarações de structs
-- [x] Geração de tabela de símbolos no formato correto
-- [x] Suporte a tipos básicos (int, float, bool, string)
-- [x] Associação correta de campos aos structs
-- [x] Declaração de variáveis de tipo struct
-- [x] Verificação de duplicação de nomes
-- [x] Formatação da saída conforme especificação
+- [X] Reconhecimento de declarações de structs
+- [X] Geração de tabela de símbolos no formato correto
+- [X] Suporte a tipos básicos (int, float, bool, string)
+- [X] Associação correta de campos aos structs
+- [X] Declaração de variáveis de tipo struct
+- [X] Verificação de duplicação de nomes
+- [X] Formatação da saída conforme especificação
 
 ### 🔄 **Limitações Atuais**
 
