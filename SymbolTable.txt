@@ -1,0 +1,56 @@
+Tabela de Símbolos – 5.1 Visão Geral, 5.2 Símbolos, 5.3 Escopos, 5.4 Tipos, 5.5 Universo.
+Responsabilidades da Tabela de Símbolos: 1) Armazenar todos os nomes declarados e seus atributos: tipo, valor (para constantes), endereço (para variáveis locais e argumentos de métodos), parâmetros (para métodos). 2) Usada para recuperar atributos de um nome: mapeamento nome → (tipo, valor, endereço, ...). Conteúdo: Nodos Símbolo (informações sobre nomes declarados), Nodos Estrutura (informações sobre tipos). Implementações: lista linear, árvore binária, tabela hash.
+
+Tabela de símbolos como lista linear: com declarações como “const int n = 10; class T { ... } int a, b, c; void M () { ... }” cada nome gera um nó símbolo. Vantagens: simples, preserva ordem de declaração (útil para endereços). Desvantagem: lenta com muitas declarações. Interface básica: public class Tab { public static Symbol Insert(Symbol.Kinds kind, string name, ...); public static Symbol Find(string name); }
+
+Tabela como árvore binária: mesma entrada gera árvore binária. Vantagens: rápida. Desvantagens: pode degenerar se não balanceada, maior uso de memória, perde ordem de declaração.
+
+Tabela como tabela hash: mesma entrada gera uma tabela hash. Vantagens: rápida. Desvantagens: mais complexa que lista linear, perde ordem de declaração. No nosso caso, lista linear é suficiente, pois cada escopo é uma lista pequena.
+
+Nodos de símbolo: cada nome declarado é um nó Symbol. Tipos de símbolo em Z#: constantes, variáveis globais, campos, argumentos, variáveis locais, tipos, métodos, programa. Enumeração: Const, Global, Field, Arg, Local, Type, Meth, Prog. Informações armazenadas: nome, tipo, classe do símbolo, ponteiro para o próximo símbolo. Constantes têm valor. Argumentos e variáveis locais têm endereço (ordem). Métodos armazenam número de argumentos e variáveis locais, e os símbolos locais. Programa tem símbolos globais. Variáveis globais, campos e tipos não têm informações adicionais.
+
+Embora uma arquitetura OO com subclasses seja possível (ex: Argument, Method), ela exigiria muitos casts. Preferimos implementação "plana": uma única classe Symbol com todos os campos possíveis. Isso é aceitável porque não precisamos de extensibilidade nem chamadas polimórficas.
+
+Classe Symbol: enum Kind { Const, Global, Field, Arg, Local, Type, Meth, Prog }; campos: kind, name (string), type (Struct), next (Symbol), val (int), adr (int), nArgs (int), nLocs (int), locals (Symbol).
+
+Inserindo nomes na tabela: método Insert é chamado ao declarar um nome. Cria objeto com kind, name, type. Verifica se o nome já existe no escopo. Atribui endereço se for variável/argumento. Insere o símbolo no final da lista do escopo. Retorna o nó criado.
+
+Exemplo de uso de Insert: ident (. Tab.insert(Obj.Var, name, type); .)
+
+Nomes predefinidos em Z#: tipos int, char; constante null; métodos ord(ch), chr(i), len(arr). Esses nomes são inseridos no "universo", escopo base. Isso permite tratamento uniforme de nomes predefinidos e declarados pelo usuário. Entretanto, nomes como "int" podem ser sobrescritos.
+
+int e char poderiam ser palavras-chave, mas exigiriam regras especiais na gramática. Exemplo: Type = ident (. Symbol sym = Tab.Find(token.str); type = sym.type; .) | "int" (. type = Tab.intType; .) | "char" (. type = Tab.charType; .)
+
+Escopos: faixa onde um nome é válido. Existem escopos para: universo (nomes predefinidos), programa (globais), métodos (locais e argumentos), classes (campos). Exemplo: classe P com método M e variáveis locais. A busca de nomes sempre começa no topScope e vai subindo até o universo.
+
+Classe Scope: campos outer (escopo externo), locals (símbolos locais), nArgs e nLocs (contadores para alocação de endereços). Abrindo escopo: cria novo escopo, encadeia com o anterior, atualiza topScope. Fechando escopo: topScope volta a ser o anterior. Os métodos Insert sempre operam sobre topScope.
+
+Inserção em escopo: Insert atribui endereços sequenciais para argumentos e variáveis locais. Verifica duplicação de nome. Adiciona novo símbolo ao final da lista. Nomes são sempre inseridos no escopo atual.
+
+Abertura e fechamento de escopos: o nome do método é inserido no escopo externo. Ao fechar o escopo, os objetos locais são atribuídos ao campo locals do método. Escopos também são abertos e fechados para classes.
+
+Busca na tabela: método Find é chamado sempre que um nome é usado. Percorre os escopos de dentro para fora. Retorna símbolo se encontrado, caso contrário retorna noSym (símbolo dummy). Isso evita uso de null e erros subsequentes.
+
+Exemplo de uso: static Symbol Find(string name) { for (Scope s = topScope; s != null; s = s.outer) for (Symbol sym = s.locals; sym != null; sym = sym.next) if (sym.name == name) return sym; Parser.Error(name + " is undeclared"); return noSym; }
+
+Tipos: cada objeto tem um tipo com tamanho e estrutura. Tipos em Z#: Int, Char, Arr (arrays), Class. Representados por nós Struct. Classe Struct: enum Kinds { None, Int, Char, Arr, Class }; campos: kind, elemType (para arrays), fields (para classes).
+
+Nodos de estrutura para tipos primitivos: há um único nó int na tabela, compartilhado por todos os símbolos do tipo int. O mesmo para char.
+
+Nodos de estrutura para arrays: comprimento desconhecido em tempo de compilação, armazenado em tempo de execução. O nó Struct de um array referencia o tipo de elemento (elemType = Int, por exemplo).
+
+Nodos de estrutura para classes: contêm lista de campos (fields). Exemplo: class C { int x, y, z; } → Struct do tipo Class com fields apontando para x, y, z.
+
+Compatibilidade de tipos — equivalência por nome: dois tipos são iguais se compartilham o mesmo nó. Usada em Java, C, Pascal, C#, Z#. Exceção: em Java/Z#, dois arrays com mesmo tipo de elemento são considerados compatíveis, mesmo que criados separadamente.
+
+Compatibilidade estrutural: dois tipos são iguais se possuem mesma estrutura (campos do mesmo tipo e ordem). Usada em Modula-3. Não é usada em Z#.
+
+Verificação de compatibilidade: métodos na classe Struct. CompatibleWith verifica se dois tipos podem ser comparados. AssignableTo verifica se um tipo pode ser atribuído a outro. Equals verifica igualdade entre tipos: para arrays, compara elemType; senão, compara referência de objeto. IsRefType retorna true se for Class ou Arr.
+
+Solução de conflitos LL(1) com uso da tabela: sintaxe alternativa para métodos (declarações fora de blocos) pode causar conflitos. Exemplo: void Foo() int a; { a = 0; } → conflito com First(VarDecl) ∩ First(Statement) = {ident}. Solução: usar informação semântica via Tab.Find.
+
+Método auxiliar: static bool NextTokenIsType() { if (la != ident) return false; Symbol sym = Tab.Find(laToken.str); return sym.kind == Symbol.Kinds.Type; }
+
+Estrutura do universo: contém tipos int e char, constante null, métodos chr, ord, len e seus argumentos. Tabela contém também símbolos dummy como noType, noSym.
+
+Interface da tabela de símbolos: class Tab { static Scope topScope; static Struct intType, charType, nullType, noType; static Symbol chrSym, ordSym, lenSym, noSym; static Symbol Insert(...); static Symbol Find(...); static void OpenScope(); static void CloseScope(); static void Init(); }
