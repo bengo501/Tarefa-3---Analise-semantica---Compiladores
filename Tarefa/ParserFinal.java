@@ -62,7 +62,7 @@ public class ParserFinal {
             
             if (line.startsWith("struct ")) {
                 parseStructDeclaration(line);
-                parseStructFields(reader);
+                // Não processar campos aqui, eles serão processados na segunda passada
             } else if (line.startsWith("void main()")) {
                 break;
             }
@@ -79,7 +79,10 @@ public class ParserFinal {
                 continue;
             }
             
-            if (line.startsWith("void main()")) {
+            if (line.startsWith("struct ")) {
+                parseStructDeclaration(line);
+                parseStructFields(reader);
+            } else if (line.startsWith("void main()")) {
                 parseMainFunction(reader);
                 break;
             } else if (isTypeDeclaration(line)) {
@@ -204,8 +207,7 @@ public class ParserFinal {
                 if (nodo != null && nodo.getClasse() == ClasseID.NomeStruct) {
                     return nodo;
                 } else {
-                    // Para tipos básicos, não reportar erro se ainda não foi declarado
-                    // Isso pode acontecer durante o parsing de campos de struct
+                    // Se não encontrou, retorna erro
                     return Tp_ERRO;
                 }
         }

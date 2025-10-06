@@ -1,1 +1,0 @@
-struct TESTE { int x; };
