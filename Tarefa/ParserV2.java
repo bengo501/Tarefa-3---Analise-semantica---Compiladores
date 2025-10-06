@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Parser {
+public class ParserV2 {
     private Yylex lexer;
     private TabSimb ts;
 
@@ -38,7 +38,7 @@ public class Parser {
     
     public ParserVal yylval;
 
-    public Parser(Reader r) {
+    public ParserV2(Reader r) {
         lexer = new Yylex(r, this);
         ts = new TabSimb();
 
@@ -74,21 +74,40 @@ public class Parser {
     }
 
     private void parseProgram() throws IOException {
-        parseDeclList();
+        // Primeiro, processar todas as declarações de struct
+        parseStructDeclarations();
+        // Depois, processar declarações de variáveis
+        parseVarDeclarations();
+        // Por fim, processar a função main
         parseMain();
     }
 
-    private void parseDeclList() throws IOException {
+    private void parseStructDeclarations() throws IOException {
         int token = lexer.yylex();
         while (token != Yylex.YYEOF && token != 0) {
             if (token == STRUCT) {
                 parseStructDecl();
+            } else if (token == VOID) {
+                // Chegou na função main, voltar o token
+                lexer.yyreset();
+                break;
             } else if (isTypeToken(token)) {
+                // É uma declaração de variável, voltar o token
+                lexer.yyreset();
+                break;
+            }
+            token = lexer.yylex();
+        }
+    }
+
+    private void parseVarDeclarations() throws IOException {
+        int token = lexer.yylex();
+        while (token != Yylex.YYEOF && token != 0) {
+            if (isTypeToken(token)) {
                 parseVarDecl(token);
             } else if (token == VOID) {
-                // Chegou na função main
-                break;
-            } else {
+                // Chegou na função main, voltar o token
+                lexer.yyreset();
                 break;
             }
             token = lexer.yylex();
@@ -255,13 +274,13 @@ public class Parser {
     public static void main(String args[]) throws IOException {
         System.out.println("\n\nVerificador semantico simples\n");
 
-        Parser yyparser;
+        ParserV2 yyparser;
         if (args.length > 0) {
-            yyparser = new Parser(new FileReader(args[0]));
+            yyparser = new ParserV2(new FileReader(args[0]));
         } else {
             System.out.println("[Quit with CTRL-D]");
             System.out.print("Programa de entrada:\n");
-            yyparser = new Parser(new InputStreamReader(System.in));
+            yyparser = new ParserV2(new InputStreamReader(System.in));
         }
 
         yyparser.yyparse();

@@ -80,16 +80,17 @@ public class TS_entry
     public String tipo2str(TS_entry tipo) {
       TS_entry tmp;
       if (tipo == null)  return "null"; 
-      else if (tipo==Parser.Tp_INT)    return "int"; 
-      else if (tipo==Parser.Tp_BOOL)   return "boolean"; 
-      else if (tipo==Parser.Tp_DOUBLE)  return "double";
-      else if (tipo==Parser.Tp_STRING)  return "string";
-      else if (tipo==Parser.Tp_STRUCT)  return "struct";
+      else if (tipo.getId().equals("int"))    return "int"; 
+      else if (tipo.getId().equals("bool"))   return "boolean"; 
+      else if (tipo.getId().equals("double"))  return "double";
+      else if (tipo.getId().equals("float"))  return "float";
+      else if (tipo.getId().equals("string"))  return "string";
+      else if (tipo.getId().equals("struct"))  return "struct";
       else if (tipo.getTipo() != null) return  String.format("array(%d,%s)",
                                                    tipo.nroElementos, 
                                                     tipo2str(tipo.tipoBase));
                  
-      else if (tipo==Parser.Tp_ERRO)  return  "_erro_";
+      else if (tipo.getId().equals("_erro_"))  return  "_erro_";
       else if (tipo.getClasse() == ClasseID.NomeStruct) return tipo.getId();
       else                             return "erro/tp";
    }
