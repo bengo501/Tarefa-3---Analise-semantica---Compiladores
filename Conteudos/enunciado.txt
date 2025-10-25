@@ -1,9 +1,5 @@
 Tarefa 3 - Análise semântica
 
-    atividade a ser executada individual ou em grupos de até 4 alunos
-    até o dia da prova P2, até as 23:59h
-    definição dos grupos e sala de entrega no card TDE
-
 O que fazer - alterar o código exemplo visto  em aula (versão com arrays) para realizar verificação semântica de structs.
 
 Como fazer:

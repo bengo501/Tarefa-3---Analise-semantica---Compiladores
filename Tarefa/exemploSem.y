@@ -44,17 +44,23 @@ TArray : '[' NUM ']' TArray { $$ = new TS_entry("?", Tp_ARRAY, currClass, $2, (T
        | { $$ = null; }
        ;
 
-structDecl : STRUCT IDENT '{' campoList '}' ';' { 
-                currStructName = $2;
-                TS_entry structNodo = ts.pesquisa($2);
-                if (structNodo != null) {
-                    yyerror("(sem) struct <" + $2 + "> já declarado");
-                } else {
-                    TS_entry novoStruct = new TS_entry($2, Tp_STRUCT, ClasseID.NomeStruct, 0, null, "-");
-                    ts.insert(novoStruct);
-                }
-            }
-            ;
+SetStructEscopo : STRUCT IDENT '{' 
+    {
+        currStructName = $2;
+        TS_entry structNodo = ts.pesquisa($2);
+        if (structNodo != null) {
+            yyerror("(sem) struct <" + $2 + "> já declarado");
+        } else {
+            TS_entry novoStruct = new TS_entry($2, Tp_STRUCT, ClasseID.NomeStruct, 0, null, "-");
+            ts.insert(novoStruct);
+        }
+    }
+;
+
+structDecl : SetStructEscopo campoList '}' ';' 
+    { 
+    }
+;
 
 campoList : campoDecl campoList { $$ = null; }
           | { $$ = null; }
@@ -109,43 +115,51 @@ exp : exp '+' exp { $$ = validaTipo('+', (TS_entry)$1, (TS_entry)$3); }
     ;
 
 
-lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
-                    if (nodo == null) {
-                       yyerror("(sem) var <" + $1 + "> nao declarada"); 
-                       $$ = Tp_ERRO;    
-                       }           
-                    else
-                        $$ = nodo.getTipo();
-                  } 
-       | IDENT '[' exp ']'  { TS_entry nodo = ts.pesquisa($1);
-                              if (nodo == null) {
-                                 yyerror("(sem) var <" + $1 + "> nao declarada");
-                                 $$ = Tp_ERRO;
-                              } else if ((TS_entry)$3 != Tp_INT) {
-                                 yyerror("(sem) indexador não é numérico ");
-                                 $$ = Tp_ERRO;
-                              } else if (nodo.getTipo() != Tp_ARRAY) {
-                                 yyerror("(sem) elemento não indexado ");
-                                 $$ = Tp_ERRO;
-                              } else {
-                                 $$ = nodo.getTipoBase();
-                              }
-                         }
-       | IDENT '.' IDENT    { TS_entry structNodo = ts.pesquisa($1);
-                             if (structNodo != null && structNodo.getTipo() != null && 
-                                 structNodo.getTipo().getClasse() == ClasseID.NomeStruct) {
-                                 TS_entry campoNodo = ts.pesquisaCampo(structNodo.getTipo().getId(), $3);
-                                 if (campoNodo != null) {
-                                     $$ = campoNodo.getTipo();
-                                 } else {
-                                     yyerror("(sem) campo >" + $3 + "< nao existe no struct <" + structNodo.getTipo().getId() + ">");
-                                     $$ = Tp_ERRO;
-                                 }
-                             } else {
-                                 yyerror("(sem) variavel >" + $1 + "< nao declarada ou nao e struct");
-                                 $$ = Tp_ERRO;
-                             }
-                         }
+lvalue : IDENT { 
+            TS_entry nodo = ts.pesquisa($1);
+            if (nodo == null) {
+                yyerror("(sem) var <" + $1 + "> nao declarada"); 
+                $$ = Tp_ERRO; 
+            } else
+                $$ = nodo.getTipo(); // Retorna o TIPO (um TS_entry)
+        }
+
+       | lvalue '[' exp ']' { 
+            TS_entry tipoLValue = (TS_entry)$1; // $1 é o tipo (ex: Tp_ARRAY)
+            TS_entry tipoExp = (TS_entry)$3;    // $3 é o tipo (ex: Tp_INT)
+
+            if (tipoExp != Tp_INT) {
+                yyerror("(sem) indexador não é numérico ");
+                $$ = Tp_ERRO;
+            } else if (tipoLValue != Tp_ARRAY) { // Checagem direta
+                yyerror("(sem) elemento não indexado ");
+                $$ = Tp_ERRO;
+            } else {
+                $$ = tipoLValue.getTipoBase(); // Retorna o tipo base
+            }
+        }
+
+       | lvalue '.' IDENT {
+            TS_entry tipoLValue = (TS_entry)$1; // $1 é o tipo (ex: tipo ALUNO, ou tipo DATA)
+
+            if (tipoLValue != null && tipoLValue.getClasse() == ClasseID.NomeStruct) {
+                
+                // $3 é o nome do campo (String)
+                TS_entry campoNodo = ts.pesquisaCampo(tipoLValue.getId(), $3); 
+                
+                if (campoNodo != null) {
+                    $$ = campoNodo.getTipo(); // O tipo deste lvalue é o tipo do campo
+                } else {
+                    yyerror("(sem) campo >" + $3 + "< nao existe no struct <" + tipoLValue.getId() + ">");
+                    $$ = Tp_ERRO;
+                }
+            } else {
+                // O lvalue anterior não era um struct
+                yyerror("(sem) elemento nao e struct ou eh nulo");
+                $$ = Tp_ERRO;
+            }
+        }
+;
 %%
 
   private Yylex lexer;
@@ -180,7 +194,6 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
     return yyl_return;
   }
 
-
   public void yyerror (String error) {
     //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
     System.err.printf("Erro (linha: %2d \tMensagem: %s)\n", lexer.getLine(), error);
@@ -204,8 +217,6 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
     ts.insert(Tp_STRING);
     ts.insert(Tp_STRUCT);
     ts.insert(Tp_ARRAY);
-    
-
   }  
 
   public void setDebug(boolean debug) {
@@ -234,7 +245,7 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
 
       yyparser.listarTS();
 
-      System.out.print("\n\nFeito!\n");
+      System.out.print("\nFeito!\n");
     
   }
 

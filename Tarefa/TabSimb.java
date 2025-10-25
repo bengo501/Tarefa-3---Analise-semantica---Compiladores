@@ -16,9 +16,10 @@ public class TabSimb
     }    
     
     public void listar() {
-      System.out.println("\n\nListagem da tabela de simbolos:\n");
-      System.out.println("ident      Classe         Escopo      Tipo");
-      System.out.println("-----------------------------------------------");
+      System.out.println("\n=======================================================");
+      System.out.println("Listagem da tabela de simbolos:\n");
+      System.out.println("ident     Classe     Escopo     Tipo");
+      System.out.println("---------------------------------------");
       for (TS_entry nodo : lista) {
           System.out.println(nodo);
       }

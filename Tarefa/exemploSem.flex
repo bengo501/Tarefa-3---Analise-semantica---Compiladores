@@ -11,7 +11,6 @@
     yyline = 1;
   }
 
-
   public int getLine() {
       return yyline;
   }
@@ -22,7 +21,6 @@ NUM = [0-9]+
 NL  = \n|\r|\r\n
 
 %%
-
 
 "$TRACE_ON"  { yyparser.setDebug(true);  }
 "$TRACE_OFF" { yyparser.setDebug(false); }
@@ -39,7 +37,8 @@ NL  = \n|\r|\r\n
 "\{" |
 "\}" |
 "\[" | 
-"\]"    { return (int) yycharat(0); }
+"\]" |
+"."     { return (int) yycharat(0); }
 
 "&&" { return Parser.AND; }
 
@@ -68,9 +67,3 @@ struct { return Parser.STRUCT; }
 [ \t]+ { }
 
 .    { System.err.println("Error: unexpected character '"+yytext()+"' na linha "+yyline); return YYEOF; }
-
-
-
-
-
-

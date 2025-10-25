@@ -17,8 +17,6 @@ public class TS_entry
 
    private TabSimb locals;
    
-
-
    // construtor básico
    public TS_entry(String umId, TS_entry umTipo, ClasseID umaClasse) {
       this(umId, umTipo, umaClasse, 0, null, "-");
@@ -39,29 +37,28 @@ public class TS_entry
       escopo = esc;
    }
 
-
    public String getId() {
        return id; 
-   }
+    }
+    
+    public ClasseID getClasse() {
+        return classe;
+    }
 
    public TS_entry getTipo() {
        return tipo; 
-   }
+    }
    
    public TS_entry getTipoBase() {
        return tipoBase; 
-   }
+    }
 
    public String getEscopo() {
        return escopo;
-   }
+    }
 
-   public ClasseID getClasse() {
-       return classe;
-   }
-   
     
-   public String toString() {
+    public String toString() {
        StringBuilder aux = new StringBuilder("");
         
        aux.append(String.format("%-10s", id));
@@ -70,12 +67,11 @@ public class TS_entry
        aux.append(tipo2str(this.tipo)); 
        
       return aux.toString();
+    }
 
-   }
-
-  public String getTipoStr() {
+    public String getTipoStr() {
        return tipo2str(this); 
-   }
+    }
 
     public String tipo2str(TS_entry tipo) {
       TS_entry tmp;
@@ -96,9 +92,3 @@ public class TS_entry
    }
 
 }
-
-
-
-
-
-
