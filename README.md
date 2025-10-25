@@ -1,7 +1,7 @@
 cd Tarefa
 
-javac ParserFinal.java
+javac Parser.java
 
-java ParserFinal corretoStruct.txt
+java Parser corretoStruct.txt
 
-java ParserFinal erroStruct.txt
+java Parser erroStruct.txt
