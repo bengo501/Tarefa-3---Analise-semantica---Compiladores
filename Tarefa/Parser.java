@@ -339,7 +339,7 @@ final static String yyrule[] = {
 "lvalue : lvalue '.' IDENT",
 };
 
-//#line 164 "exemploSem.y"
+//#line 181 "exemploSem.y"
 
   private Yylex lexer;
 
@@ -375,7 +375,7 @@ final static String yyrule[] = {
 
   public void yyerror (String error) {
     //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
-    System.err.printf("Erro (linha: %2d \tMensagem: %s)\n", lexer.getLine(), error);
+    System.err.printf("Erro (linha: %2d) \tMensagem: %s\n", lexer.getLine(), error);
   }
 
 
@@ -431,6 +431,7 @@ final static String yyrule[] = {
 
    TS_entry validaTipo(int operador, TS_entry A, TS_entry B) {
        
+        if (A == Tp_ERRO || B == Tp_ERRO) return Tp_ERRO;
          switch ( operador ) {
               case ATRIB:
                     if ( (A == Tp_INT && B == Tp_INT)                        ||
@@ -474,7 +475,7 @@ final static String yyrule[] = {
            
      }
 
-//#line 406 "Parser.java"
+//#line 407 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -778,27 +779,44 @@ break;
 case 35:
 //#line 142 "exemploSem.y"
 {
-            TS_entry tipoLValue = (TS_entry)val_peek(2).obj; /* $1 é o tipo (ex: tipo ALUNO, ou tipo DATA)*/
-
+            TS_entry tipoLValue = (TS_entry)val_peek(2).obj; 
             if (tipoLValue != null && tipoLValue.getClasse() == ClasseID.NomeStruct) {
                 
-                /* $3 é o nome do campo (String)*/
                 TS_entry campoNodo = ts.pesquisaCampo(tipoLValue.getId(), val_peek(0).sval); 
                 
                 if (campoNodo != null) {
-                    yyval.obj = campoNodo.getTipo(); /* O tipo deste lvalue é o tipo do campo*/
+                    yyval.obj = campoNodo.getTipo(); /* Campo encontrado, retorna o tipo do campo*/
                 } else {
-                    yyerror("(sem) campo >" + val_peek(0).sval + "< nao existe no struct <" + tipoLValue.getId() + ">");
-                    yyval.obj = Tp_ERRO;
+                    /* Campo NÃO encontrado*/
+                    yyerror("(sem) <" + val_peek(0).sval + "> não é campo da STRUCT <" + tipoLValue.getId() + ">");
+                    yyval.obj = tipoLValue; /* <--- CORREÇÃO AQUI: Retorna o tipo do STRUCT (ex: DATA)*/
                 }
             } else {
-                /* O lvalue anterior não era um struct*/
-                yyerror("(sem) elemento nao e struct ou eh nulo");
-                yyval.obj = Tp_ERRO;
-            }
-        }
+              /* Não é um struct*/
+              String tipoStr = "null";
+              String classeStr = "null";
+              String tipoDoTipoStr = "null";
+
+              if (tipoLValue != null) {
+                  tipoStr = tipoLValue.getTipoStr();
+                  classeStr = tipoLValue.getClasse().toString();
+                  tipoDoTipoStr = tipoLValue.tipo2str(tipoLValue.getTipo());
+              }
+              
+              /* CORREÇÃO:*/
+              /* 1. Adicionado um '%s' (tipoStr) extra para fazer o "int<int"*/
+              String errorMsg = String.format("(sem) Esperado tipo STRUCT e recebido >%s>%s\t%s\n\t\t\t%s", 
+                                              tipoStr,       
+                                              tipoStr,      
+                                              classeStr,     /* "TipoBase"*/
+                                              tipoDoTipoStr); /* "null"*/
+              
+              yyerror(errorMsg);
+              yyval.obj = Tp_ERRO; 
+          }
+      }
 break;
-//#line 725 "Parser.java"
+//#line 743 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

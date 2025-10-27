@@ -13,10 +13,6 @@ java Parser erroStruct.txt
 ---
 ### Compilação do programa
 
-del *.class
-del Parser.java
-del ParserVal.java
-
 java -jar jflex.jar exemploSem.flex
 
 .\yacc.exe -J exemploSem.y

@@ -140,25 +140,42 @@ lvalue : IDENT {
         }
 
        | lvalue '.' IDENT {
-            TS_entry tipoLValue = (TS_entry)$1; // $1 é o tipo (ex: tipo ALUNO, ou tipo DATA)
-
+            TS_entry tipoLValue = (TS_entry)$1; 
             if (tipoLValue != null && tipoLValue.getClasse() == ClasseID.NomeStruct) {
                 
-                // $3 é o nome do campo (String)
                 TS_entry campoNodo = ts.pesquisaCampo(tipoLValue.getId(), $3); 
                 
                 if (campoNodo != null) {
-                    $$ = campoNodo.getTipo(); // O tipo deste lvalue é o tipo do campo
+                    $$ = campoNodo.getTipo(); // Campo encontrado, retorna o tipo do campo
                 } else {
-                    yyerror("(sem) campo >" + $3 + "< nao existe no struct <" + tipoLValue.getId() + ">");
-                    $$ = Tp_ERRO;
+                    // Campo NÃO encontrado
+                    yyerror("(sem) <" + $3 + "> não é campo da STRUCT <" + tipoLValue.getId() + ">");
+                    $$ = tipoLValue; // <--- CORREÇÃO AQUI: Retorna o tipo do STRUCT (ex: DATA)
                 }
             } else {
-                // O lvalue anterior não era um struct
-                yyerror("(sem) elemento nao e struct ou eh nulo");
-                $$ = Tp_ERRO;
-            }
-        }
+              // Não é um struct
+              String tipoStr = "null";
+              String classeStr = "null";
+              String tipoDoTipoStr = "null";
+
+              if (tipoLValue != null) {
+                  tipoStr = tipoLValue.getTipoStr();
+                  classeStr = tipoLValue.getClasse().toString();
+                  tipoDoTipoStr = tipoLValue.tipo2str(tipoLValue.getTipo());
+              }
+              
+              // CORREÇÃO:
+              // 1. Adicionado um '%s' (tipoStr) extra para fazer o "int<int"
+              String errorMsg = String.format("(sem) Esperado tipo STRUCT e recebido >%s>%s\t%s\n\t\t\t%s", 
+                                              tipoStr,       
+                                              tipoStr,      
+                                              classeStr,     // "TipoBase"
+                                              tipoDoTipoStr); // "null"
+              
+              yyerror(errorMsg);
+              $$ = Tp_ERRO; 
+          }
+      }
 ;
 %%
 
@@ -196,7 +213,7 @@ lvalue : IDENT {
 
   public void yyerror (String error) {
     //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
-    System.err.printf("Erro (linha: %2d \tMensagem: %s)\n", lexer.getLine(), error);
+    System.err.printf("Erro (linha: %2d) \tMensagem: %s\n", lexer.getLine(), error);
   }
 
 
@@ -252,6 +269,7 @@ lvalue : IDENT {
 
    TS_entry validaTipo(int operador, TS_entry A, TS_entry B) {
        
+        if (A == Tp_ERRO || B == Tp_ERRO) return Tp_ERRO;
          switch ( operador ) {
               case ATRIB:
                     if ( (A == Tp_INT && B == Tp_INT)                        ||
