@@ -339,7 +339,7 @@ final static String yyrule[] = {
 "lvalue : lvalue '.' IDENT",
 };
 
-//#line 181 "exemploSem.y"
+//#line 177 "exemploSem.y"
 
   private Yylex lexer;
 
@@ -374,8 +374,8 @@ final static String yyrule[] = {
   }
 
   public void yyerror (String error) {
-    //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
     System.err.printf("Erro (linha: %2d) \tMensagem: %s\n", lexer.getLine(), error);
+    yynerrs++;
   }
 
 
@@ -384,10 +384,6 @@ final static String yyrule[] = {
 
     ts = new TabSimb();
 
-    //
-    // não me parece que necessitem estar na TS
-    // já que criei todas como public static...
-    //
     ts.insert(Tp_ERRO);
     ts.insert(Tp_INT);
     ts.insert(Tp_DOUBLE);
@@ -422,7 +418,9 @@ final static String yyrule[] = {
 
     yyparser.yyparse();
 
-      yyparser.listarTS();
+      if (yyparser.yynerrs == 0) {
+        yyparser.listarTS();
+      }
 
       System.out.print("\nFeito!\n");
     
@@ -475,7 +473,7 @@ final static String yyrule[] = {
            
      }
 
-//#line 407 "Parser.java"
+//#line 405 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -686,27 +684,27 @@ case 13:
             }
 break;
 case 14:
-//#line 78 "exemploSem.y"
+//#line 76 "exemploSem.y"
 { yyval.obj = Tp_INT; }
 break;
 case 15:
-//#line 79 "exemploSem.y"
+//#line 77 "exemploSem.y"
 { yyval.obj = Tp_DOUBLE; }
 break;
 case 16:
-//#line 80 "exemploSem.y"
+//#line 78 "exemploSem.y"
 { yyval.obj = Tp_FLOAT; }
 break;
 case 17:
-//#line 81 "exemploSem.y"
+//#line 79 "exemploSem.y"
 { yyval.obj = Tp_BOOL; }
 break;
 case 18:
-//#line 82 "exemploSem.y"
+//#line 80 "exemploSem.y"
 { yyval.obj = Tp_STRING; }
 break;
 case 19:
-//#line 83 "exemploSem.y"
+//#line 81 "exemploSem.y"
 { TS_entry nodo = ts.pesquisa(val_peek(0).sval);
                 if (nodo == null ) 
                    yyerror("(sem) Nome de tipo <" + val_peek(0).sval + "> nao declarado ");
@@ -715,41 +713,41 @@ case 19:
                }
 break;
 case 25:
-//#line 102 "exemploSem.y"
+//#line 100 "exemploSem.y"
 {  if ( ((TS_entry)val_peek(2).obj) != Tp_BOOL) 
                                      yyerror("(sem) expressão (if) deve ser lógica "+((TS_entry)val_peek(2).obj).getTipo());
                              }
 break;
 case 26:
-//#line 108 "exemploSem.y"
+//#line 106 "exemploSem.y"
 { yyval.obj = validaTipo('+', (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
 case 27:
-//#line 109 "exemploSem.y"
+//#line 107 "exemploSem.y"
 { yyval.obj = validaTipo('>', (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
 case 28:
-//#line 110 "exemploSem.y"
+//#line 108 "exemploSem.y"
 { yyval.obj = validaTipo(AND, (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj); }
 break;
 case 29:
-//#line 111 "exemploSem.y"
+//#line 109 "exemploSem.y"
 { yyval.obj = Tp_INT; }
 break;
 case 30:
-//#line 112 "exemploSem.y"
+//#line 110 "exemploSem.y"
 { yyval.obj = val_peek(1).obj; }
 break;
 case 31:
-//#line 113 "exemploSem.y"
+//#line 111 "exemploSem.y"
 { yyval.obj = val_peek(0).obj; }
 break;
 case 32:
-//#line 114 "exemploSem.y"
+//#line 112 "exemploSem.y"
 {  yyval.obj = validaTipo(ATRIB, (TS_entry)val_peek(2).obj, (TS_entry)val_peek(0).obj);  }
 break;
 case 33:
-//#line 118 "exemploSem.y"
+//#line 116 "exemploSem.y"
 { 
             TS_entry nodo = ts.pesquisa(val_peek(0).sval);
             if (nodo == null) {
@@ -760,7 +758,7 @@ case 33:
         }
 break;
 case 34:
-//#line 127 "exemploSem.y"
+//#line 125 "exemploSem.y"
 { 
             TS_entry tipoLValue = (TS_entry)val_peek(3).obj; /* $1 é o tipo (ex: Tp_ARRAY)*/
             TS_entry tipoExp = (TS_entry)val_peek(1).obj;    /* $3 é o tipo (ex: Tp_INT)*/
@@ -777,7 +775,7 @@ case 34:
         }
 break;
 case 35:
-//#line 142 "exemploSem.y"
+//#line 140 "exemploSem.y"
 {
             TS_entry tipoLValue = (TS_entry)val_peek(2).obj; 
             if (tipoLValue != null && tipoLValue.getClasse() == ClasseID.NomeStruct) {
@@ -789,7 +787,7 @@ case 35:
                 } else {
                     /* Campo NÃO encontrado*/
                     yyerror("(sem) <" + val_peek(0).sval + "> não é campo da STRUCT <" + tipoLValue.getId() + ">");
-                    yyval.obj = tipoLValue; /* <--- CORREÇÃO AQUI: Retorna o tipo do STRUCT (ex: DATA)*/
+                    yyval.obj = tipoLValue; /* Retorna o tipo do STRUCT (ex: DATA)*/
                 }
             } else {
               /* Não é um struct*/
@@ -803,8 +801,6 @@ case 35:
                   tipoDoTipoStr = tipoLValue.tipo2str(tipoLValue.getTipo());
               }
               
-              /* CORREÇÃO:*/
-              /* 1. Adicionado um '%s' (tipoStr) extra para fazer o "int<int"*/
               String errorMsg = String.format("(sem) Esperado tipo STRUCT e recebido >%s>%s\t%s\n\t\t\t%s", 
                                               tipoStr,       
                                               tipoStr,      
@@ -816,7 +812,7 @@ case 35:
           }
       }
 break;
-//#line 743 "Parser.java"
+//#line 739 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -72,9 +72,7 @@ campoDecl : type IDENT ';' {
             }
             ;
 
-              //
-              // faria mais sentido reconhecer todos os tipos como ident! 
-              // 
+             
 type : INT    { $$ = Tp_INT; }
      | DOUBLE  { $$ = Tp_DOUBLE; }
      | FLOAT   { $$ = Tp_FLOAT; }
@@ -150,7 +148,7 @@ lvalue : IDENT {
                 } else {
                     // Campo NÃO encontrado
                     yyerror("(sem) <" + $3 + "> não é campo da STRUCT <" + tipoLValue.getId() + ">");
-                    $$ = tipoLValue; // <--- CORREÇÃO AQUI: Retorna o tipo do STRUCT (ex: DATA)
+                    $$ = tipoLValue; // Retorna o tipo do STRUCT (ex: DATA)
                 }
             } else {
               // Não é um struct
@@ -164,8 +162,6 @@ lvalue : IDENT {
                   tipoDoTipoStr = tipoLValue.tipo2str(tipoLValue.getTipo());
               }
               
-              // CORREÇÃO:
-              // 1. Adicionado um '%s' (tipoStr) extra para fazer o "int<int"
               String errorMsg = String.format("(sem) Esperado tipo STRUCT e recebido >%s>%s\t%s\n\t\t\t%s", 
                                               tipoStr,       
                                               tipoStr,      
@@ -212,8 +208,8 @@ lvalue : IDENT {
   }
 
   public void yyerror (String error) {
-    //System.err.println("Erro (linha: "+ lexer.getLine() + ")\tMensagem: "+error);
     System.err.printf("Erro (linha: %2d) \tMensagem: %s\n", lexer.getLine(), error);
+    yynerrs++;
   }
 
 
@@ -222,10 +218,6 @@ lvalue : IDENT {
 
     ts = new TabSimb();
 
-    //
-    // não me parece que necessitem estar na TS
-    // já que criei todas como public static...
-    //
     ts.insert(Tp_ERRO);
     ts.insert(Tp_INT);
     ts.insert(Tp_DOUBLE);
@@ -260,7 +252,9 @@ lvalue : IDENT {
 
     yyparser.yyparse();
 
-      yyparser.listarTS();
+      if (yyparser.yynerrs == 0) {
+        yyparser.listarTS();
+      }
 
       System.out.print("\nFeito!\n");
     
